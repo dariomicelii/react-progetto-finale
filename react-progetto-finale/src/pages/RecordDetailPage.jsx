@@ -1,11 +1,25 @@
 import React, { useEffect, useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 function RecordDetail() {
+  const navigate = useNavigate();
   const { id } = useParams();
   const [record, setRecord] = useState(null);
   const [loading, setLoading] = useState(true);
+
+  const handleDelete = (id) => {
+    if (confirm("Sei sicuro di voler eliminare questo disco?")) {
+      axios
+        .delete(`http://127.0.0.1:8000/api/records/${id}`)
+        .then(() => {
+          // Ricarica i record dopo l'eliminazione
+          navigate("/");
+          setRecord((prev) => prev.filter((r) => r.id !== id));
+        })
+        .catch((err) => console.error("Errore eliminazione:", err));
+    }
+  };
 
   useEffect(() => {
     axios
@@ -37,6 +51,13 @@ function RecordDetail() {
         <strong>Genere:</strong>{" "}
         {record.genre ? record.genre.name : "Sconosciuto"}
       </p>
+
+      <button
+        className="btn btn-danger mt-2"
+        onClick={() => handleDelete(record.id)}
+      >
+        Elimina
+      </button>
     </div>
   );
 }

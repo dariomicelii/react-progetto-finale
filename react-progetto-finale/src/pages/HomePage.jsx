@@ -4,8 +4,18 @@ import { Link } from "react-router-dom";
 
 function HomePage() {
   const [records, setRecords] = useState([]);
+  const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+
+  const filteredRecords = records.filter((record) => {
+    const searchLower = search.toLowerCase();
+    return (
+      record.title.toLowerCase().includes(searchLower) ||
+      record.artist.toLowerCase().includes(searchLower) ||
+      (record.genre && record.genre.name.toLowerCase().includes(searchLower))
+    );
+  });
 
   useEffect(() => {
     axios
@@ -24,10 +34,19 @@ function HomePage() {
   if (error) return <p className="text-danger text-center mt-4">{error}</p>;
 
   return (
-    <div className="container mt-5">
+    <div className="container mt-5 mb-5">
       <h1 className="mb-4">I Tuoi Dischi</h1>
+
+      <input
+        type="text"
+        className="form-control mb-4"
+        placeholder="Cerca per titolo..."
+        value={search}
+        onChange={(e) => setSearch(e.target.value)}
+      />
+
       <div className="row">
-        {records.map((record) => (
+        {filteredRecords.map((record) => (
           <div key={record.id} className="col-md-4 mb-4">
             <Link
               to={`/records/${record.id}`}
@@ -45,7 +64,7 @@ function HomePage() {
                   </p>
                   <Link
                     to={`/records/${record.id}/edit`}
-                    className="btn btn-secondary mt-2 ms-2"
+                    className="btn btn-secondary mt-2 ms-2 me-2"
                   >
                     Modifica
                   </Link>
