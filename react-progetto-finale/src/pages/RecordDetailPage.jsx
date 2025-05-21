@@ -40,7 +40,7 @@ function RecordDetail() {
     return <p className="text-center mt-4 text-danger">Disco non trovato.</p>;
 
   return (
-    <div className="container mt-5">
+    <div className="container mt-5 d-flex flex-column align-items-center">
       <Link to="/" className="btn btn-dark mb-3">
         ← Torna alla lista
       </Link>
@@ -61,9 +61,18 @@ function RecordDetail() {
         {record.genre ? record.genre.name : "Sconosciuto"}
       </p>
 
-      <button className="btn btn-danger mt-2" onClick={openModal}>
-        Elimina
-      </button>
+      <div className="d-flex flex-row">
+        <Link
+          to={`/records/${record.id}/edit`}
+          className="btn btn-dark mt-2 ms-2 me-2"
+        >
+          Modifica
+        </Link>
+
+        <button className="btn btn-danger mt-2" onClick={openModal}>
+          Elimina
+        </button>
+      </div>
 
       {showModal && (
         <>

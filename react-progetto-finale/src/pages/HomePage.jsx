@@ -39,7 +39,7 @@ function HomePage() {
 
       <input
         type="text"
-        className="form-control mb-4"
+        className="form-control mb-5"
         placeholder="Cerca per titolo..."
         value={search}
         onChange={(e) => setSearch(e.target.value)}
@@ -47,7 +47,7 @@ function HomePage() {
 
       <div className="row">
         {filteredRecords.map((record) => (
-          <div key={record.id} className="col-md-4 mb-4">
+          <div key={record.id} className="col-md-4 mb-4 mt-5">
             <Link
               to={`/records/${record.id}`}
               className="text-decoration-none text-dark"
@@ -63,7 +63,7 @@ function HomePage() {
                   }
                   alt={record.title}
                   className="card-img-top"
-                  style={{ objectFit: "cover", height: "200px" }}
+                  style={{ objectFit: "cover", height: "100%" }}
                 />
 
                 <div className="card-body">
