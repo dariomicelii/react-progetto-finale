@@ -7,18 +7,19 @@ function RecordDetail() {
   const { id } = useParams();
   const [record, setRecord] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [showModal, setShowModal] = useState(false);
 
-  const handleDelete = (id) => {
-    if (confirm("Sei sicuro di voler eliminare questo disco?")) {
-      axios
-        .delete(`http://127.0.0.1:8000/api/records/${id}`)
-        .then(() => {
-          // Ricarica i record dopo l'eliminazione
-          navigate("/");
-          setRecord((prev) => prev.filter((r) => r.id !== id));
-        })
-        .catch((err) => console.error("Errore eliminazione:", err));
-    }
+  const openModal = () => setShowModal(true);
+  const closeModal = () => setShowModal(false);
+
+  const confirmDelete = () => {
+    axios
+      .delete(`http://127.0.0.1:8000/api/records/${id}`)
+      .then(() => {
+        closeModal();
+        navigate("/");
+      })
+      .catch((err) => console.error("Errore eliminazione:", err));
   };
 
   useEffect(() => {
@@ -40,9 +41,17 @@ function RecordDetail() {
 
   return (
     <div className="container mt-5">
-      <Link to="/" className="btn btn-secondary mb-3">
+      <Link to="/" className="btn btn-dark mb-3">
         ← Torna alla lista
       </Link>
+      <br />
+      <img
+        src={record.cover_image ? record.cover_image : "/img/placeholder.jpg"}
+        alt={record.title}
+        className="img-fluid mb-3"
+        style={{ maxHeight: "300px", objectFit: "cover" }}
+      />
+
       <h2>{record.title}</h2>
       <p>
         <strong>Anno:</strong> {record.year}
@@ -52,12 +61,37 @@ function RecordDetail() {
         {record.genre ? record.genre.name : "Sconosciuto"}
       </p>
 
-      <button
-        className="btn btn-danger mt-2"
-        onClick={() => handleDelete(record.id)}
-      >
+      <button className="btn btn-danger mt-2" onClick={openModal}>
         Elimina
       </button>
+
+      {showModal && (
+        <>
+          {/* Backdrop scuro */}
+          <div className="custom-backdrop" onClick={closeModal}></div>
+
+          {/* Finestra modale */}
+          <div className="custom-modal">
+            <div className="custom-modal-content">
+              <div className="custom-modal-header">
+                <h5>Conferma eliminazione</h5>
+                <button className="btn-close" onClick={closeModal}></button>
+              </div>
+              <div className="custom-modal-body">
+                <p>Sei sicuro di voler eliminare questo disco?</p>
+              </div>
+              <div className="custom-modal-footer">
+                <button className="btn btn-secondary" onClick={closeModal}>
+                  Annulla
+                </button>
+                <button className="btn btn-danger" onClick={confirmDelete}>
+                  Elimina
+                </button>
+              </div>
+            </div>
+          </div>
+        </>
+      )}
     </div>
   );
 }

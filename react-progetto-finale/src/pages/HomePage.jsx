@@ -52,7 +52,20 @@ function HomePage() {
               to={`/records/${record.id}`}
               className="text-decoration-none text-dark"
             >
-              <div className="card h-100">
+              <div className="card h-100 d-flex flex-column">
+                {/* 👇 Mostra immagine */}
+
+                <img
+                  src={
+                    record.cover_image
+                      ? record.cover_image
+                      : "/img/placeholder.jpg"
+                  }
+                  alt={record.title}
+                  className="card-img-top"
+                  style={{ objectFit: "cover", height: "200px" }}
+                />
+
                 <div className="card-body">
                   <h4 className="card-title">{record.title}</h4>
                   <span className="card-subtitle">- {record.artist}</span>
@@ -64,7 +77,7 @@ function HomePage() {
                   </p>
                   <Link
                     to={`/records/${record.id}/edit`}
-                    className="btn btn-secondary mt-2 ms-2 me-2"
+                    className="btn btn-dark mt-2 ms-2 me-2"
                   >
                     Modifica
                   </Link>
@@ -74,7 +87,7 @@ function HomePage() {
           </div>
         ))}
       </div>
-      <Link to="/add" className="btn btn-success mt-4">
+      <Link to="/add" className="btn btn-dark mt-4">
         Aggiungi un nuovo disco
       </Link>
     </div>

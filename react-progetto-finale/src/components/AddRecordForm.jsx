@@ -11,6 +11,7 @@ function AddRecordForm() {
   const [genre_id, setGenreId] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [coverImage, setCoverImage] = useState(null);
 
   // Recupera i generi
   const [genres, setGenres] = useState([]);
@@ -23,21 +24,33 @@ function AddRecordForm() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setLoading(true);
+
+    const formData = new FormData();
+    formData.append("title", title);
+    formData.append("artist", artist);
+    formData.append("year", parseInt(year));
+    formData.append("genre_id", parseInt(genre_id));
+    if (coverImage) {
+      formData.append("cover_image", coverImage); // 👈 campo immagine
+    }
 
     axios
-      .post("http://127.0.0.1:8000/api/records", {
-        title,
-        artist,
-        year: parseInt(year),
-        genre_id: parseInt(genre_id),
+      .post("http://127.0.0.1:8000/api/records", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
       })
-      .then((response) => {
+      .then(() => {
         alert("Disco creato con successo!");
-        navigate("/"); // reindirizza alla homepage
+        navigate("/");
       })
       .catch((error) => {
         console.error(error);
         alert("Errore nella creazione del disco.");
+      })
+      .finally(() => {
+        setLoading(false);
       });
   };
 
@@ -63,12 +76,12 @@ function AddRecordForm() {
         </div>
 
         <div className="mb-3">
-          <label htmlFor="title" className="form-label">
+          <label htmlFor="artist" className="form-label">
             Artista
           </label>
           <input
             type="text"
-            id="title"
+            id="artist"
             className="form-control"
             value={artist}
             onChange={(e) => setArtist(e.target.value)}
@@ -108,6 +121,19 @@ function AddRecordForm() {
               </option>
             ))}
           </select>
+        </div>
+
+        <div className="mb-3">
+          <label htmlFor="coverImage" className="form-label">
+            Immagine di copertina
+          </label>
+          <input
+            type="file"
+            id="coverImage"
+            className="form-control"
+            accept="image/*"
+            onChange={(e) => setCoverImage(e.target.files[0])}
+          />
         </div>
 
         <button type="submit" className="btn btn-primary" disabled={loading}>
