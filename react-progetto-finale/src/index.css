@@ -1,3 +1,9 @@
+body {
+  background-image: url("img/cartadaparati.jpg");
+
+  background-attachment: fixed;
+}
+
 .custom-backdrop {
   position: fixed;
   top: 0;

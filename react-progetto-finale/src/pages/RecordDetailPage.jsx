@@ -45,33 +45,36 @@ function RecordDetail() {
         ← Torna alla lista
       </Link>
       <br />
-      <img
-        src={record.cover_image ? record.cover_image : "/img/placeholder.jpg"}
-        alt={record.title}
-        className="img-fluid mb-3"
-        style={{ maxHeight: "300px", objectFit: "cover" }}
-      />
+      <div className="p-4 rounded-4 shadow-lg bg-secondary text-black d-flex flex-column align-items-center">
+        <img
+          src={record.cover_image ? record.cover_image : "/img/placeholder.jpg"}
+          alt={record.title}
+          className="img-fluid mb-3"
+          style={{ maxHeight: "300px", objectFit: "cover" }}
+        />
 
-      <h2>{record.title}</h2>
-      <p>
-        <strong>Anno:</strong> {record.year}
-      </p>
-      <p>
-        <strong>Genere:</strong>{" "}
-        {record.genre ? record.genre.name : "Sconosciuto"}
-      </p>
+        <h2>{record.title}</h2>
+        <h4 className="text-muted mb-4">{record.artist}</h4>
+        <p>
+          <strong>Anno:</strong> {record.year}
+        </p>
+        <p>
+          <strong>Genere:</strong>{" "}
+          {record.genre ? record.genre.name : "Sconosciuto"}
+        </p>
 
-      <div className="d-flex flex-row">
-        <Link
-          to={`/records/${record.id}/edit`}
-          className="btn btn-dark mt-2 ms-2 me-2"
-        >
-          Modifica
-        </Link>
+        <div className="d-flex flex-row">
+          <Link
+            to={`/records/${record.id}/edit`}
+            className="btn btn-dark mt-2 ms-2 me-2"
+          >
+            Modifica
+          </Link>
 
-        <button className="btn btn-danger mt-2" onClick={openModal}>
-          Elimina
-        </button>
+          <button className="btn btn-danger mt-2" onClick={openModal}>
+            Elimina
+          </button>
+        </div>
       </div>
 
       {showModal && (

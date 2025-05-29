@@ -20,6 +20,7 @@ function EditRecord() {
       setRecord(res.data.data);
       setFormData({
         title: res.data.data.title,
+        artist: res.data.data.artist,
         year: res.data.data.year,
         genre_id: res.data.data.genre_id || "",
       });
@@ -40,10 +41,15 @@ function EditRecord() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log("Dati inviati al backend:", formData);
+    console.log("Chiavi del payload:", Object.keys(formData));
+
     axios
       .put(`http://127.0.0.1:8000/api/records/${id}`, formData)
       .then(() => navigate("/"))
-      .catch((err) => console.error(err));
+      .catch((err) =>
+        console.error("Errore nella richiesta PUT:", err.response.data)
+      );
   };
 
   if (!record) return <p className="text-center mt-5">Caricamento...</p>;

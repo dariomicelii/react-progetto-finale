@@ -5,7 +5,7 @@ function Layout() {
   return (
     <div className="d-flex flex-column min-vh-100">
       {/* Navbar */}
-      <nav className="navbar navbar-expand-lg navbar-dark bg-black">
+      <nav className="navbar navbar-expand-lg navbar-dark bg-black fixed-top">
         <div className="container">
           <Link className="navbar-brand" to="/">
             🎵 My Records
@@ -18,7 +18,7 @@ function Layout() {
                 </Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link" to="/records/create">
+                <Link className="nav-link" to="/add">
                   Aggiungi
                 </Link>
               </li>
@@ -28,7 +28,7 @@ function Layout() {
       </nav>
 
       {/* Main Content */}
-      <main className="flex-grow-1 container py-4">
+      <main className="flex-grow-1 container py-5">
         <Outlet />
       </main>
 
