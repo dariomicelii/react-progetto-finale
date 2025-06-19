@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Layout from "./components/Layout";
 import HomePage from "./pages/HomePage";
 import RecordDetail from "./pages/RecordDetailPage";
-import AddRecordForm from "./components/AddRecordForm";
+import AddRecordForm from "./pages/AddRecordForm";
 import EditRecord from "./pages/EditRecord";
 
 function App() {

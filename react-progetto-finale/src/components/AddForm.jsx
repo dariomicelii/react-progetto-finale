@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-function AddRecordForm() {
+function AddForm() {
   const navigate = useNavigate();
 
   const [title, setTitle] = useState("");
@@ -56,14 +56,14 @@ function AddRecordForm() {
 
   return (
     <div className="container mt-5">
-      <h1>Aggiungi un nuovo disco</h1>
+      <h1 className="mb-5">Aggiungi un nuovo disco</h1>
 
       {error && <div className="alert alert-danger">{error}</div>}
 
       <form onSubmit={handleSubmit}>
         <div className="mb-3">
           <label htmlFor="title" className="form-label">
-            Titolo
+            <strong>Titolo</strong>
           </label>
           <input
             type="text"
@@ -71,13 +71,14 @@ function AddRecordForm() {
             className="form-control"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
+            placeholder="Inserisci il titolo del disco"
             required
           />
         </div>
 
         <div className="mb-3">
           <label htmlFor="artist" className="form-label">
-            Artista
+            <strong>Artista</strong>
           </label>
           <input
             type="text"
@@ -85,13 +86,14 @@ function AddRecordForm() {
             className="form-control"
             value={artist}
             onChange={(e) => setArtist(e.target.value)}
+            placeholder="Inserisci il nome dell'artista"
             required
           />
         </div>
 
         <div className="mb-3">
           <label htmlFor="year" className="form-label">
-            Anno
+            <strong>Anno</strong>
           </label>
           <input
             type="number"
@@ -99,13 +101,14 @@ function AddRecordForm() {
             className="form-control"
             value={year}
             onChange={(e) => setYear(e.target.value)}
+            placeholder="Inserisci l'anno di pubblicazione"
             required
           />
         </div>
 
         <div className="mb-3">
           <label htmlFor="genre" className="form-label">
-            Genere
+            <strong>Genere</strong>
           </label>
           <select
             id="genre"
@@ -125,7 +128,7 @@ function AddRecordForm() {
 
         <div className="mb-3">
           <label htmlFor="coverImage" className="form-label">
-            Immagine di copertina
+            <strong>Immagine di copertina</strong>
           </label>
           <input
             type="file"
@@ -144,4 +147,4 @@ function AddRecordForm() {
   );
 }
 
-export default AddRecordForm;
+export default AddForm;

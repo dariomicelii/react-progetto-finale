@@ -35,9 +35,9 @@ function RecordDetail() {
       });
   }, [id]);
 
-  if (loading) return <p className="text-center mt-4">Caricamento...</p>;
+  if (loading) return <p className="text-center mt-5">Caricamento...</p>;
   if (!record)
-    return <p className="text-center mt-4 text-danger">Disco non trovato.</p>;
+    return <p className="text-center mt-5 text-danger">Disco non trovato.</p>;
 
   return (
     <div className="container mt-5 d-flex flex-column align-items-center">
@@ -50,11 +50,11 @@ function RecordDetail() {
           src={record.cover_image ? record.cover_image : "/img/placeholder.jpg"}
           alt={record.title}
           className="img-fluid mb-3"
-          style={{ maxHeight: "300px", objectFit: "cover" }}
+          style={{ maxHeight: "250px", objectFit: "cover" }}
         />
 
         <h2>{record.title}</h2>
-        <h4 className="text-muted mb-4">{record.artist}</h4>
+        <h4 className="text-muted mb-3">{record.artist}</h4>
         <p>
           <strong>Anno:</strong> {record.year}
         </p>
