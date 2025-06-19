@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import Card from "../components/Card";
+import Searchbar from "../components/Searchbar";
 
 function HomePage() {
   const [records, setRecords] = useState([]);
@@ -60,13 +61,7 @@ function HomePage() {
       <h1 className="mb-4">I Tuoi Dischi</h1>
 
       {/* Campo di ricerca */}
-      <input
-        type="text"
-        className="form-control mb-3 rounded-5"
-        placeholder="Cerca per titolo, artista o genere..."
-        value={search}
-        onChange={(e) => setSearch(e.target.value)}
-      />
+      <Searchbar onSearch={setSearch} />
 
       {/* Filtro per genere */}
 
