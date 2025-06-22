@@ -3,6 +3,8 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import Card from "../components/Card";
 import Searchbar from "../components/Searchbar";
+import GenreFilter from "../components/GenreFilter";
+import YearFilter from "../components/YearFilter";
 
 function HomePage() {
   const [records, setRecords] = useState([]);
@@ -66,31 +68,18 @@ function HomePage() {
       {/* Filtro per genere */}
 
       <div className="d-flex gap-3 mb-4 ">
-        <select
-          className="form-select mb-4 rounded-5"
-          value={selectedGenre}
-          onChange={(e) => setSelectedGenre(e.target.value)}
-        >
-          <option value="">Tutti i generi</option>
-          {genres.map((genre) => (
-            <option key={genre.id} value={genre.name}>
-              {genre.name}
-            </option>
-          ))}
-        </select>
+        <GenreFilter
+          genres={genres}
+          selectedGenre={selectedGenre}
+          setSelectedGenre={setSelectedGenre}
+        />
 
-        <select
-          className="form-select mb-4 rounded-5"
-          value={selectedYear}
-          onChange={(e) => setSelectedYear(e.target.value)}
-        >
-          <option value="">Tutti gli anni</option>
-          {years.map((year) => (
-            <option key={year} value={year}>
-              {year}
-            </option>
-          ))}
-        </select>
+        {/* Filtro per anno */}
+        <YearFilter
+          years={years}
+          selectedYear={selectedYear}
+          setSelectedYear={setSelectedYear}
+        />
       </div>
 
       {/* Elenco dischi */}
